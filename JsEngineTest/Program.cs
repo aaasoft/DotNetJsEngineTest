@@ -1,4 +1,4 @@
-﻿using JsEngineTest.Core;
+﻿using JavaScriptEngineSwitcher.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,28 +17,32 @@ for(var i=0;i<100000000;i++){
     a/= Math.E;
 }
 ";
-            Dictionary<string, IJavascriptEngine> dict = new Dictionary<string, IJavascriptEngine>()
+            Dictionary<string, IJsEngine> dict = new Dictionary<string, IJsEngine>()
             {
                 [@"VRoom
 ------------
 Engine: V8
-Platform: All"] = new VRoomEngine(),
+Platform: All"] = new JavaScriptEngineSwitcher.Vroom.VroomJsEngine(),
                 [@"ChakraCore
 ------------
 Engine: Chakra
-Platform: Windows x86,Windows x64,Windows ARM,Linux x64"] = new ChakraCoreEngine(),
+Platform: Windows x86,Windows x64,Windows ARM,Linux x64"] = new JavaScriptEngineSwitcher.ChakraCore.ChakraCoreJsEngine(),
                 [@"ClearScript.V8
 ------------
 Engine: V8
-Platform: Windows Only"] = new ClearScriptV8Engine(),
+Platform: Windows Only"] = new JavaScriptEngineSwitcher.V8.V8JsEngine(),
 [@"Jurassic
 ------------
 Engine: Jurassic
-Platform: All"] = new JurassicEngine(),
+Platform: All"] = new JavaScriptEngineSwitcher.Jurassic.JurassicJsEngine(),
+                [@"NiL
+------------
+Engine: Nil
+Platform: All"] = new JavaScriptEngineSwitcher.NiL.NiLJsEngine(),
                 [@"Jint
 ------------
 Engine: Jint
-Platform: All"] = new JintEngine()
+Platform: All"] = new JavaScriptEngineSwitcher.Jint.JintJsEngine()
             };
 
             System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
