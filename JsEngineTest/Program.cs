@@ -45,14 +45,31 @@ Platform: All"] = new JavaScriptEngineSwitcher.Jint.JintJsEngine()
                 
                 Console.WriteLine($"{key}");
                 var engine = dict[key];
-                engine.EmbedHostObject("bridge", new Bridge());
                 stopwatch.Restart();
-                engine.Execute("bridge.Test();");
+                try
+                {
+                    engine.EmbedHostObject("bridge", new Bridge(Test));
+                    engine.Execute("bridge.Invoke();");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("ERROR:" + ex.Message);
+                }
                 stopwatch.Stop();
                 Console.WriteLine($"UsedTime(ms): {stopwatch.ElapsedMilliseconds}");
                 Console.WriteLine("");
             }
             Console.ReadLine();
+        }
+
+        static void Test()
+        {
+            for (var i = 0; i < 10; i++)
+            {
+                var a = 123 + 456;
+                var b = 456 + a;
+                Console.WriteLine(b);
+            }
         }
     }
 }

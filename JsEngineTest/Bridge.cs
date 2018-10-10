@@ -8,14 +8,14 @@ namespace JsEngineTest
 {
     public class Bridge
     {
-        public void Test()
+        private Action action;
+        public Bridge(Action action)
         {
-            for(var i=0;i<10;i++)
-            {
-                var a = 123 + 456;
-                var b = 456 + a;
-                Console.WriteLine(b);
-            }
+            this.action = action;
+        }
+        public void Invoke()
+        {
+            action();
         }
     }
 }
