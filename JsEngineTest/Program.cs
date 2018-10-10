@@ -11,12 +11,6 @@ namespace JsEngineTest
     {
         static void Main(string[] args)
         {
-            var testSourceCode = @"
-for(var i=0;i<100000000;i++){
-    var a = Math.PI * Math.E;
-    a/= Math.E;
-}
-";
             Dictionary<string, IJsEngine> dict = new Dictionary<string, IJsEngine>()
             {
                 [@"VRoom
@@ -51,8 +45,9 @@ Platform: All"] = new JavaScriptEngineSwitcher.Jint.JintJsEngine()
                 
                 Console.WriteLine($"{key}");
                 var engine = dict[key];
+                engine.EmbedHostObject("bridge", new Bridge());
                 stopwatch.Restart();
-                engine.Execute(testSourceCode);
+                engine.Execute("bridge.Test();");
                 stopwatch.Stop();
                 Console.WriteLine($"UsedTime(ms): {stopwatch.ElapsedMilliseconds}");
                 Console.WriteLine("");
